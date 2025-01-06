@@ -1,17 +1,44 @@
-/**
- * enableUI.js
- * A simple script to display the hostname of the current page.
- * Hosted via GitHub CDN or similar.
- */
+// domain-logger.js
 
 (function () {
-  /**
-   * Function to alert the hostname of the current page.
-   */
-  function jslogger() {
-    alert(window.location.hostname);
-  }
+  const logDomain = () => {
+    try {
+      const currentDomain = window.location.hostname;
+      console.log(`Current Domain: ${currentDomain}`);
+      return currentDomain;
+    } catch (error) {
+      console.error("An error occurred while logging domain:", error);
+    }
+  };
 
-  // Expose the function globally to be accessible when included via <script>.
-  window.enableUI = jslogger;
+  const loadScript = (src) => {
+    try {
+      const script = document.createElement("script");
+      script.src = src;
+      script.type = "text/javascript";
+      script.async = true;
+
+      script.onload = () => {
+        console.log(`Successfully loaded script: ${src}`);
+      };
+
+      script.onerror = () => {
+        console.error(`Failed to load script: ${src}`);
+      };
+
+      document.head.appendChild(script);
+      return `Loading script: ${src}`;
+    } catch (error) {
+      console.error("An error occurred while loading the script:", error);
+    }
+  };
+
+  // Expose functions to the global `window` object
+  window.domainLogger = {
+    logDomain,
+    loadScript,
+  };
+
+  // Execute domain logging on page load
+  document.addEventListener("DOMContentLoaded", logDomain);
 })();
