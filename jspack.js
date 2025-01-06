@@ -4,7 +4,7 @@
   const logDomain = () => {
     try {
       const currentDomain = window.location.hostname;
-      console.log(`Current Domain: ${currentDomain}`);
+      alert(`Current Domain: ${currentDomain}`);
       return currentDomain;
     } catch (error) {
       console.error("An error occurred while logging domain:", error);
